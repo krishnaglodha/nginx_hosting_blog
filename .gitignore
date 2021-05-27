@@ -1,1 +1,2 @@
-/api/testenv/*
+api/node_modules
+angularapp/node_modules
