@@ -1,10 +1,7 @@
 var express = require("express");
 var app = express();
 
-app.get("/", function (req, res) {
-  res.send("Hello World");
-});
-
+//list of heroes
 var heroes = [
   "Mahatma Gandhi",
   "Bhagat singh",
@@ -16,9 +13,19 @@ var heroes = [
   "J. R. D. Tata",
 ];
 
-app.get("/heroes", function (req, res) {
-  res.send({ "Heroes": heroes[Math.floor(Math.random() * heroes.length)] });
+//Initiate router with same url that we'll be using in nginx
+var api = express.Router();
+
+//add all APIs
+api.get("/", function (req, res) {
+   res.send("Hello World");
 });
+api.get("/heroes", function (req, res) {
+  res.send({ Heroes: heroes[Math.floor(Math.random() * heroes.length)] });
+});
+
+app.use("/api", api);
+
 
 var server = app.listen(8081, function () {
   var port = server.address().port;
